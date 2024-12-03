@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-hostpath-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce             # Access mode to match the PV
+  resources:
+    requests:
+      storage: 5Gi              # Requesting the same size as the PV
