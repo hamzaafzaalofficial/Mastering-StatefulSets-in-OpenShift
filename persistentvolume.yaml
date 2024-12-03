@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nginx-hostpath-pv
+spec:
+  capacity:
+    storage: 5Gi               # Specify the total storage capacity
+  accessModes:
+    - ReadWriteOnce             # Access mode for the volume
+  hostPath:                     # Using hostPath for local storage
+    path: /mnt/data/nginx-data  # Path on the host node where data will be stored
