@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx
+spec:
+  serviceName: "nginx"
+  replicas: 2                   # Number of replicas for the StatefulSet
+  selector:
+    matchLabels:
+      app: nginx                # Label selector for pods in this StatefulSet
+  template:
+    metadata:
+      labels:
+        app: nginx              # Labels for the pod template
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: nginx           # Container name
+          image: nginx         # Image to use for the container
+          ports:
+            - containerPort: 80 # Port to expose on the container
+              name: web        # Name of the port
+          volumeMounts:
+            - name: www        # Name of the volume to mount
+              mountPath: /usr/share/nginx/html # Path inside the container where volume is mounted
+      volumes:
+        - name: www             # Define the volume using existing PVC
+          persistentVolumeClaim:
+            claimName: nginx-hostpath-pvc # Reference to the existing PVC
